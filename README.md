@@ -3,8 +3,6 @@ sleep
 
 `sleep` with a countdown timer
 
-TODO:
-
 ![](sleep.gif)
 
 
