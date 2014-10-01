@@ -1,0 +1,40 @@
+#!/usr/bin/env python
+# encoding: utf-8
+"""
+usage: sleep seconds
+"""
+
+from sys import argv, stderr, stdout
+from time import sleep
+
+
+def _main():
+    # get number of seconds
+    try:
+        seconds = float(argv[1])
+    except Exception:
+        print >> stderr, __doc__[1:-1]
+        exit(1)
+
+    # prepare for sleeping
+    length = len('%.1f' % seconds) + 4
+    interval = 0.1
+
+    def put(s=''):
+        print ('%s%s\r' % (' ' * (length - len(s)), s)),
+        stdout.flush()
+
+    while seconds > 0:
+        # show timer
+        put('%.1f' % seconds)
+
+        # sleep (let's ignore the fact that code in this loop takes
+        # time too...)
+        sleep(interval)
+        seconds -= interval
+
+    # clear the screen
+    put()
+
+if __name__ == '__main__':
+    _main()
