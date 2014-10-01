@@ -1,7 +1,7 @@
 sleep
 =====
 
-Naïve implementation of `sleep` with a countdown timer.
+`sleep` with a countdown timer
 
 TODO:
 

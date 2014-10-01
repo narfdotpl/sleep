@@ -5,7 +5,7 @@ usage: sleep seconds
 """
 
 from sys import argv, stderr, stdout
-from time import sleep
+from time import sleep, time
 
 
 def _main():
@@ -16,22 +16,20 @@ def _main():
         print >> stderr, __doc__[1:-1]
         exit(1)
 
-    # prepare for sleeping
-    length = len('%.1f' % seconds) + 4
-    interval = 0.1
+    # get target time
+    target_time = time() + seconds
 
+    # print right-aligned string and go back to the beginning of a line
+    line_length = len('%.1f' % seconds) + 4
     def put(s=''):
-        print ('%s%s\r' % (' ' * (length - len(s)), s)),
+        print ('%s%s\r' % (' ' * (line_length - len(s)), s)),
         stdout.flush()
 
+    # show countdown timer
     while seconds > 0:
-        # show timer
         put('%.1f' % seconds)
-
-        # sleep (let's ignore the fact that code in this loop takes
-        # time too...)
-        sleep(interval)
-        seconds -= interval
+        sleep(0.1)
+        seconds = target_time - time()
 
     # clear the screen
     put()
